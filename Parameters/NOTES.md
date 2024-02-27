@@ -33,3 +33,12 @@
  - Fn::Ref function is used to reference parameters almost anywhere;
  - Exceptions: AWSTemplateFormatVersion, Description, Transform, Mappings;
  - Shorthand: !Ref (YAML)
+<br>
+
+# Systems Manager Parameter Store (SSM)
+
+ - Globally available CloudFormation Template Parameters;
+
+## Use Cases:
+
+ - Fetch latest AMI IDs
