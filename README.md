@@ -26,3 +26,9 @@
 ### Rollback on Failure:
     - Part of "Stack Creation Options", sets a default behavior for stack create/update failure scenarios;
     - We're able to delete all new resources, or retain everything created;
+
+## Deploying a Template
+
+ * Manually: through AWS Console CloudFormation resource;
+
+ * Automated: using YAML templates, the AWS CLI tool and a CD tool;
