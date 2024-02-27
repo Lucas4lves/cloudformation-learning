@@ -1,4 +1,9 @@
+#############################
+####### PARAMETERS ##########
+#############################
+
 Parameters:
+
   SecurityGroupDescription:
     Description: A sample security group
     # Settings -> Type
@@ -8,7 +13,7 @@ Parameters:
     Description: A range of allowed values for SG ports
     Type: Number
     MinValue: 1150
-    MaxValeu: 65535
+    MaxValue: 65535
 
   InstanceType: 
     Description: EC2 Instance
@@ -37,3 +42,64 @@ Parameters:
     Type: String
     MinLength: '9'
     MaxLength: '18'
+    Default: 0.0.0.0/0
+    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3}).(\d{1,3})/(\d{1,2})
+    ConstraintDescription: Such value has to be a valid IP CIDR 
+
+  MyVPC:
+    Description: VPC 
+    Type: AWS::EC2::VPC::Id
+
+  MySubnetIDs:
+    Description: Subnet IDs
+    # List of type AWS Subnet Id
+    Type: "List<AWS::EC2::Subnet::Id>"
+
+  DbSubnetIpBlocks:
+    Description: "Comma separated list of three CIDR Blocks"
+    Type: CommaDelimitedList
+    Default: "10.0.48.0/24, 10.0.122.0/24, 10.0.176.0/24"
+
+#############################
+####### RESOURCES ###########
+#############################
+
+Resources:
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      ImageId: ami-0742b4e673072066f
+      SubnetId: !Ref DbSubnet1
+
+  MySecurityGroup:
+    Type: AWS::EC2::SecutiryGroup
+    Properties:
+      GroupDescription: !Ref SecurityGroupDescription
+      SecurityGroupIngress:
+        - CidrIp: !Ref SecurityGroupIngressCIDR
+        - FromPort: !Ref SecurityGroupPort 
+        - ToPort: !Ref SecurityGroupPort
+        - IpProtocol: tcp
+      VpcId: !Ref MyVPC
+
+  DbSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: !Select [0, !Ref DbSubnetIpBlocks]
+      
+  DbSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: !Select [1, !Ref DbSubnetIpBlocks]
+
+  DbSubnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: !Select [2, !Ref DbSubnetIpBlocks]
+  
