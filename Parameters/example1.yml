@@ -1,0 +1,39 @@
+Parameters:
+  SecurityGroupDescription:
+    Description: A sample security group
+    # Settings -> Type
+    Type: String
+
+  SecurityGroupPort:
+    Description: A range of allowed values for SG ports
+    Type: Number
+    MinValue: 1150
+    MaxValeu: 65535
+
+  InstanceType: 
+    Description: EC2 Instance
+    Type: String
+    Default: t2.small
+    # List of strings
+    AllowedValues:
+      - t1.micro
+      - t2.nano
+      - t2.micro
+      - t2.small 
+    ConstraintDescription: Has to be a valid EC2 Instance type
+
+  DWPwd:
+    NoEcho: true
+    Description: DB's instance password
+    Type: String
+
+  KeyName:
+    Description: Name of a SSH Key Pair 
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: Such value needs to be of an existing EC2 Key Pair
+  
+  SecurityGroupIngressCIDR:
+    Description: IP Address range to communicate with EC2 instances 
+    Type: String
+    MinLength: '9'
+    MaxLength: '18'

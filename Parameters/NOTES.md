@@ -15,3 +15,21 @@
     - List<Number>
     - AWS Specific (regarding data of your own account or resources);
     - List<AWS-Specific>:
+
+## Description
+
+## Constraint Description
+
+## Min/MaxLength
+## Min/MaxValue
+## Default
+## Allowed Patterns (regex)
+## Allowed Values (arr)
+## NoEcho (bool)
+
+
+## Referencing 
+
+ - Fn::Ref function is used to reference parameters almost anywhere;
+ - Exceptions: AWSTemplateFormatVersion, Description, Transform, Mappings;
+ - Shorthand: !Ref (YAML)
