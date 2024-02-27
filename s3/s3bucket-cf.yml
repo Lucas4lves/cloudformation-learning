@@ -6,6 +6,4 @@ Resources:
     Type: AWS::S3::Bucket
     # Nested object kind of key with specific props for a resource
     Properties:
-      Tags:
-        cost-center: devops
-        learning: true
+      BucketName: course-bucket-renamed 
